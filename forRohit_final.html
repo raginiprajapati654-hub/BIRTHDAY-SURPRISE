@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Rohit</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container { z-index: 10; padding: 20px; }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px #00d4ff;
+        }
+
+        /* Heartbeat animation for the gift */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #gift-box {
+            font-size: 120px;
+            cursor: pointer;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite ease-in-out;
+            transition: 0.3s;
+        }
+
+        #gift-box:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 30px #ff007a);
+        }
+
+        .message {
+            display: none;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        p { font-size: 1.2rem; color: #cbd5e1; }
+        .highlight { color: #ff007a; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="setup">
+            <h1>Hey Rohit...</h1>
+            <p>I wrote some code just for you.</p>
+            <div id="gift-box">🎁</div>
+            <p style="opacity: 0.6;">(Click to execute surprise.exe)</p>
+        </div>
+
+        <div id="surprise-message" class="message">
+            <h1>Happy Birthday, Rohit! 🎂</h1>
+            <p>You will do great in your life 🎀</p>
+            <p>I hope your day is as amazing as you are.</p>
+            
+        </div>
+    </div>
+
+    <script>
+        const gift = document.getElementById('gift-box');
+        const setup = document.getElementById('setup');
+        const message = document.getElementById('surprise-message');
+
+        gift.addEventListener('click', () => {
+            setup.style.display = 'none';
+            message.style.display = 'block';
+
+            // Custom Rohit-themed confetti (Blues and Pinks)
+            var end = Date.now() + (4 * 1000);
+            var colors = ['#00d4ff', '#ff007a', '#ffffff'];
+
+            (function frame() {
+              confetti({
+                particleCount: 3,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: colors
+              });
+              confetti({
+                particleCount: 3,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: colors
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+        });
+    </script>
+</body>
+</html>
